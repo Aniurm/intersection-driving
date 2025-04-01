@@ -22,7 +22,7 @@ def parse_arguments():
         help="Model to train",
         default="DDPG",
         metavar="NAME",
-        choices=["DDPG", "PPO", "RecurrentPPO", "SAC", "DQN"])
+        choices=["DDPG", "PPO", "RecurrentPPO", "SAC", "DQN", "EnhancedDQN"])
     argparser.add_argument(
         "-t", "--timesteps",
         help="Number of timesteps to train for",
@@ -165,6 +165,10 @@ def load_new_model(args: argparse.Namespace, log_dir: os.path, env: gym.Env):
                     gradient_steps=GRADIENT_STEPS,
                     verbose=VERBOSE,
                     tensorboard_log=log_dir)
+    elif args.model == "EnhancedDQN":
+        from custom.enhanced_dqn import EnhancedDQN
+        model = EnhancedDQN(policy, env, learning_rate=LEARNING_RATE, buffer_size=BUFFER_SIZE,
+                            gamma=GAMMA)
 
     return model
 
