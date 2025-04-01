@@ -4,7 +4,7 @@ import random
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import gym
+import gymnasium as gym
 
 class DuelingDQNNetwork(nn.Module):
     def __init__(self, state_dim, action_dim):
